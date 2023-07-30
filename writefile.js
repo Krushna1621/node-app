@@ -10,7 +10,17 @@ function rqListener(req,res){
         res.end('</html>') 
     }    
     if(url === '/message' && method === 'POST'){
-        fs.writeFileSync('message.txt','DUMMY')
+        const body=[];
+        req.on('data',(chunk)=>{
+            console.log(chunk)
+            body.push(chunk) 
+        });
+        req.on('end',()=>{
+            const parsedBody=Buffer.concat(body).toString();
+            const message=parsedBody.split('=')[1];
+            fs.writeFileSync('hello.txt',message)
+        })
+       
         res.statusCode=302;
         res.setHeader('Location','/')
          return res.end()
