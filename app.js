@@ -1,6 +1,9 @@
-const http=require('http')
-const routes=require('./routes.js')
-const server=http.createServer(routes)
-server.listen(3000,()=>{
-  console.log("server runnig on 3000 port")
-})
+const http = require('http');
+const requestHandler = require('./routes');
+
+const port = 4000;
+const server = http.createServer(requestHandler);
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
